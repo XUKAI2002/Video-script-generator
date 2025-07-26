@@ -64,7 +64,7 @@ if submit:
             # 显示带重试进度的加载状态
             with st.spinner(f"AI创作中 (尝试 {attempt + 1}/{max_retries})..."):
                 # 调用生成函数（参数来自用户输入）
-                search_result, title, script = generate_script(
+                title, script = generate_script(
                     subject,
                     video_length,
                     creativity,
