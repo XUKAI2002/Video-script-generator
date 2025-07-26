@@ -77,7 +77,7 @@ def generate_script(subject, video_length, creativity, api_key):
           - 结尾简短有力（1-2句话）
           - 整体语言精炼，避免冗余
           参考信息（可选使用）：
-          ```{wikipedia_search}```""")]
+          """)]
     )
 
     # ================== 模型配置 ==================
@@ -112,7 +112,7 @@ def generate_script(subject, video_length, creativity, api_key):
         script = script_chain.invoke({
             "title": title,
             "duration": video_length,
-            "wikipedia_search": "未找到相关信息"
+            "search": "success"
 
 
 
