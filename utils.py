@@ -1,7 +1,6 @@
 # 导入必要的库
 from langchain.prompts import ChatPromptTemplate  # 用于构建聊天提示模板
 from langchain_openai import ChatOpenAI  # LangChain的OpenAI聊天模型封装
-from langchain_community.utilities import WikipediaAPIWrapper  # 维基百科搜索工具
 import requests  # 用于发送HTTP请求
 import json  # JSON数据处理
 
@@ -103,30 +102,23 @@ def generate_script(subject, video_length, creativity, api_key):
     try:
         # 调用模型生成标题
         title = title_chain.invoke({"subject": subject}).content
+
     except Exception as e:
         # 捕获并封装异常
         raise Exception(f"标题生成失败: {str(e)}")
 
-    # ================== 维基百科搜索 ==================
-    # 创建搜索实例（限制中文+前2个结果）
-    search = WikipediaAPIWrapper(lang="zh", top_k_results=2)
-    try:
-        # 执行搜索并截断结果（防止过长）
-        search_result = search.run(subject)[:1000]  # 限制1000字符
-    except Exception:
-        # 搜索失败时使用默认值
-        search_result = "未找到相关信息"
-
-    # ================== 脚本生成 ==================
     try:
         # 调用模型生成脚本（传入标题/时长/搜索内容）
         script = script_chain.invoke({
             "title": title,
             "duration": video_length,
-            "wikipedia_search": search_result
+            "wikipedia_search": "未找到相关信息"
+
+
+
         }).content
     except Exception as e:
         # 捕获并封装异常
         raise Exception(f"脚本生成失败: {str(e)}")
 
-    return search_result, title, script
+    return title, script
