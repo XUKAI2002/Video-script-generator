@@ -51,3 +51,6 @@ git clone https://github.com/XUKAI2002/Video-script-generator.git
 
 # 安装依赖(requirements.txt文件见主项目)
 pip install -r requirements.txt
+
+# 运行项目
+streamlit run main.py
